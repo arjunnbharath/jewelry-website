@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model SiteSettings {
+  id               String  @id @default("default")
+      siteName         String  @default("Lumière Fine Jewelry")
+      tagline          String  @default("Timeless elegance, crafted to shine")
+      logoUrl          String?
+      primaryColor     String  @default("#B8956A")
+      secondaryColor   String  @default("#9A7B52")
+      accentColor      String  @default("#C4A574")
+      backgroundColor  String  @default("#FFFFFF")
+      textColor        String  @default("#1A1A1A")
+      mutedColor       String  @default("#6B6B6B")
+      heroTitle        String  @default("Jewelry That Tells *Your* Story")
+      heroSubtitle     String  @default("Exquisite designs. Fine craftsmanship. Made to be cherished forever.")
+      heroImageUrl     String  @default("https://images.unsplash.com/photo-1596944924616-7b384c8e8f5c?w=1800&q=80")
+      heroCtaText      String  @default("Shop Now")
+      heroCtaLink      String  @default("/products")
+      promoBannerText  String  @default("Get 10% Off Your First Order | Use Code: LUXE10")
+  promoBannerActive Boolean @default(true)
+  footerAbout      String  @default("Lumière Jewels offers thoughtfully designed pieces that celebrate life's most precious moments.")
+  footerEmail      String  @default("hello@lumierejewels.com")
+  footerPhone      String  @default("+1 (555) 123-4567")
+  footerAddress    String  @default("128 Madison Avenue, New York, NY")
+  instagramUrl     String?
+  facebookUrl      String?
+  pinterestUrl     String?
+  currency         String  @default("USD")
+  currencySymbol   String  @default("$")
+  updatedAt        DateTime @updatedAt
+}
+
+model Admin {
+  id           String @id @default(cuid())
+  email        String @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?
+  sortOrder   Int       @default(0)
+  isVisible   Boolean   @default(true)
+  products    Product[]
+  promotions  Promotion[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String
+  price       Float
+  salePrice   Float?
+  stock       Int        @default(0)
+  images      String     @default("[]")
+  categoryId  String?
+  category    Category?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  isFeatured  Boolean    @default(false)
+  isActive    Boolean    @default(true)
+  sortOrder   Int        @default(0)
+  promotions  Promotion[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Promotion {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  discountType  String   @default("PERCENTAGE")
+  discountValue Float
+  startsAt      DateTime?
+  endsAt        DateTime?
+  isActive      Boolean  @default(true)
+  appliesTo     String   @default("ALL")
+  bannerText    String?
+  categoryId    String?
+  category      Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  productId     String?
+  product       Product?  @relation(fields: [productId], references: [id], onDelete: SetNull)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Page {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  content     String
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model NavItem {
+  id        String  @id @default(cuid())
+  label     String
+  href      String
+  sortOrder Int     @default(0)
+  isVisible Boolean @default(true)
+  location  String  @default("HEADER")
+}
+
+model Order {
+  id           String      @id @default(cuid())
+  orderNumber  String      @unique
+  status       String      @default("CONFIRMED")
+  email        String
+  firstName    String
+  lastName     String
+  phone        String?
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  state        String
+  postalCode   String
+  country      String      @default("US")
+  subtotal     Float
+  shipping     Float
+  total        Float
+  notes        String?
+  items        OrderItem[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  productName String
+  productSlug String
+  image       String
+  price       Float
+  quantity    Int
+}

@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #c4a574;
+  --color-secondary: #8b7355;
+  --color-accent: #d4b896;
+  --color-background: #f7f3ee;
+  --color-surface: #ffffff;
+  --color-espresso: #0a0a0a;
+  --color-brown: #111111;
+  --color-cream: #faf7f3;
+  --color-text: #1a1410;
+  --color-muted: #7a6f66;
+  --color-border: #e8e0d6;
+}
+
+@theme inline {
+  --font-sans: var(--font-dm);
+  --font-serif: var(--font-cormorant);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scroll-snap-x::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-snap-x > * {
+  scroll-snap-align: start;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.hero-title {
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-size: clamp(1.875rem, 4vw, 2.625rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+.display-title {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.section-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.bg-silk {
+  background-color: #f0ebe3;
+  background-image:
+    linear-gradient(
+      118deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.55) 28%,
+      transparent 52%
+    ),
+    linear-gradient(
+      298deg,
+      transparent 10%,
+      rgba(255, 255, 255, 0.35) 42%,
+      transparent 68%
+    ),
+    linear-gradient(180deg, #f6f1ea 0%, #ebe4d8 45%, #f3ede5 100%);
+}
+
+.store-x {
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .store-x {
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .store-x {
+    padding-inline: 3rem;
+  }
+}
