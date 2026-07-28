@@ -15,6 +15,8 @@ export const BRACELET_IMAGE =
 
 export const HERO_BACKGROUND = "/background/openpage.jpg";
 
+export const HERO_BACKGROUND_MOBILE = "/background/background mobile.jpg";
+
 export const HERO_FALLBACK =
   "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1800&q=80";
 

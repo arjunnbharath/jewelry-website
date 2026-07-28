@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { SiteSettings } from "@/generated/prisma/client";
-import { HERO_BACKGROUND } from "@/lib/images";
+import { HERO_BACKGROUND, HERO_BACKGROUND_MOBILE } from "@/lib/images";
 
 const DEFAULT_BADGES = [
   "Fine Craftsmanship",
@@ -25,7 +25,6 @@ function renderHeroTitle(title: string) {
 }
 
 export function SimHero({ settings }: { settings: SiteSettings }) {
-  const image = HERO_BACKGROUND;
   const title = settings.heroTitle || settings.siteName;
 
   return (
@@ -33,18 +32,30 @@ export function SimHero({ settings }: { settings: SiteSettings }) {
       <div className="relative h-screen min-h-[600px] w-full">
         {/* Background — slight zoom-out via oversized frame, no black edges */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute inset-0 sm:hidden">
             <Image
-              src={image}
+              src={HERO_BACKGROUND_MOBILE}
               alt={settings.siteName}
               fill
               priority
-              className="object-cover object-center"
+              className="object-cover object-top"
               sizes="100vw"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/40" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/10 to-transparent" />
+          <div className="absolute inset-0 hidden sm:block">
+            <div className="absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-1/2">
+              <Image
+                src={HERO_BACKGROUND}
+                alt={settings.siteName}
+                fill
+                priority
+                className="object-cover object-center"
+                sizes="100vw"
+              />
+            </div>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/40 sm:from-black/80" />
+          <div className="absolute inset-0 hidden bg-gradient-to-r from-black/50 via-black/10 to-transparent sm:block" />
         </div>
 
         <div className="store-x relative flex h-full flex-col justify-end pb-10 pt-[calc(73px+1.5rem)] sm:pb-12 sm:pt-[calc(73px+2rem)]">
