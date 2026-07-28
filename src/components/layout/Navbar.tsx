@@ -91,7 +91,9 @@ export function Navbar({ settings, navItems, categories }: NavbarProps) {
     ? createPortal(
         <div
           className={`fixed inset-0 z-[200] lg:hidden transition-opacity duration-300 ${
-            menuOpen ? "visible opacity-100" : "invisible opacity-0"
+            menuOpen
+              ? "visible opacity-100"
+              : "pointer-events-none invisible opacity-0"
           }`}
           aria-hidden={!menuOpen}
         >

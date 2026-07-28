@@ -2,6 +2,8 @@ import { ShopCatalog } from "@/components/store/ShopCatalog";
 import { prisma } from "@/lib/prisma";
 import { getSiteSettings } from "@/lib/site";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductsPage() {
   const settings = await getSiteSettings();
 

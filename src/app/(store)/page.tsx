@@ -6,6 +6,8 @@ import { SimHero } from "@/components/store/SimHero";
 import { prisma } from "@/lib/prisma";
 import { getSiteSettings } from "@/lib/site";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const settings = await getSiteSettings();
 
