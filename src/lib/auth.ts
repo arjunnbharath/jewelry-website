@@ -8,7 +8,9 @@ export type SessionData = {
 };
 
 export const sessionOptions: SessionOptions = {
-  password: process.env.SESSION_SECRET!,
+  password:
+    process.env.SESSION_SECRET ||
+    "dev-only-session-secret-change-me-32chars",
   cookieName: "lumiere_admin_session",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
