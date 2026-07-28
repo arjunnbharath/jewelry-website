@@ -23,6 +23,8 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
 });
 
+export const dynamic = "force-dynamic";
+
 export default async function StoreLayout({
   children,
 }: {
